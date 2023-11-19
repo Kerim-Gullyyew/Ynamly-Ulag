@@ -12,6 +12,16 @@ const TransportList = () => {
   const navigation = useNavigation();
   const { transports } = useSelector(state => state.login.userData);
   const [select, setSelect] = useState(null)
+
+  const Edit = () => {
+    navigation.navigate('editDriverFormTransport', {
+      vehicle_type: select.item.vehicle_type,
+      model: select.item.model,
+      image: select.item.image,
+      id: select.item.id,
+    })
+    setSelect(null);
+  }
   return (
     <View style={styles.transport}>
       <View style={styles.actions}>
@@ -27,12 +37,7 @@ const TransportList = () => {
               })}
             />
             <EditButton
-              onPress={() => navigation.navigate('editDriverFormTransport', {
-                vehicle_type: select.item.vehicle_type,
-                model: select.item.model,
-                image: select.item.image,
-                id: select.item.id,
-              })}
+              onPress={Edit}
             />
           </>
         )}

@@ -144,6 +144,7 @@ function App() {
           />
           <Stack.Screen
             options={{
+              title: "Maglumat giriziň",
               headerShown: true,
               headerTitleAlign: 'center',
               headerStyle: {
@@ -157,6 +158,7 @@ function App() {
             name="addDriverFormTransport"
             component={AddDriverFormTransport}
           />
+        
           <Stack.Screen
             options={{
               title: "Maglumat giriziň",
@@ -211,6 +213,9 @@ function App() {
           />
 
           <Stack.Screen
+          options={{
+            title: "Ulagy üýtgetmek"
+          }}
             name="editDriverFormTransport"
             component={EditDriverFormTransport}
           />

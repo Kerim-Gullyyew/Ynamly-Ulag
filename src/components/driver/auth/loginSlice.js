@@ -317,45 +317,65 @@ const loginSlice = createSlice({
       })
       .addCase(toggleTrip.fulfilled, (state, action) => {
         state.error = '';
-        console.log(action.payload.data.user_trips);
-        action.payload.data.user_trips.forEach((user_trip) => {
-          state.userData.trips = state.userData.trips.map((trip) => {
-            if (user_trip.id === trip.id) {
-              return {
-                capacity: trip.capacity,
-                cargo: trip.cargo,
-                description: trip.description,
-                from_location: trip.from_location,
-                id: trip.id,
-                is_active: user_trip.is_active,
-                is_intercity: trip.is_intercity,
-                is_onway: trip.is_onway,
-                leaving_time: trip.leaving_time,
-                passanger: trip.passanger,
-                to_location: trip.to_location,
-                transport_id: trip.transport_id
-              }
+        console.log(action.payload.id);
+        state.userData.trips = state.userData.trips.map((trip) => {
+          if (action.payload.id === trip.id) {
+            return {
+              capacity: trip.capacity,
+              cargo: trip.cargy,
+              description: trip.description,
+              from_location: trip.from_location,
+              id: trip.id,
+              is_active: action.payload.data.is_active,
+              is_intercity: trip.is_intercity,
+              is_onway: trip.is_onway,
+              leaving_time: trip.leaving_time,
+              passanger: trip.passanger,
+              to_location: trip.to_location,
+              transport_id: trip.transport_id
             }
-            if (action.payload.id === trip.id) {
-              return {
-                capacity: trip.capacity,
-                cargo: trip.cargy,
-                description: trip.description,
-                from_location: trip.from_location,
-                id: trip.id,
-                is_active: action.payload.data.is_active,
-                is_intercity: trip.is_intercity,
-                is_onway: trip.is_onway,
-                leaving_time: trip.leaving_time,
-                passanger: trip.passanger,
-                to_location: trip.to_location,
-                transport_id: trip.transport_id
-              }
-            }
-            return trip
-          });
-
+          }
         })
+
+          action.payload.data.user_trips.forEach((user_trip) => {
+            state.userData.trips = state.userData.trips.map((trip) => {
+              if (user_trip.id === trip.id) {
+                return {
+                  capacity: trip.capacity,
+                  cargo: trip.cargo,
+                  description: trip.description,
+                  from_location: trip.from_location,
+                  id: trip.id,
+                  is_active: user_trip.is_active,
+                  is_intercity: trip.is_intercity,
+                  is_onway: trip.is_onway,
+                  leaving_time: trip.leaving_time,
+                  passanger: trip.passanger,
+                  to_location: trip.to_location,
+                  transport_id: trip.transport_id
+                }
+              }
+              if (action.payload.id === trip.id) {
+                return {
+                  capacity: trip.capacity,
+                  cargo: trip.cargy,
+                  description: trip.description,
+                  from_location: trip.from_location,
+                  id: trip.id,
+                  is_active: action.payload.data.is_active,
+                  is_intercity: trip.is_intercity,
+                  is_onway: trip.is_onway,
+                  leaving_time: trip.leaving_time,
+                  passanger: trip.passanger,
+                  to_location: trip.to_location,
+                  transport_id: trip.transport_id
+                }
+              }
+              return trip
+            });
+  
+          })
+        
 
         state.isLoading = false;
       })

@@ -35,7 +35,7 @@ const EditDriverFormTransport = ({ route }) => {
     dispatch(deleteTransport({ token, id }))
       .unwrap()
       .then(res => {
-        navigation.navigate('transportList');
+        navigation.navigate('addTrip');
         setIsLoading(false)
       })
       .catch(err => {
@@ -62,7 +62,7 @@ const EditDriverFormTransport = ({ route }) => {
         .unwrap()
         .then(res => {
           setIsLoading(false)
-          navigation.navigate('transportList');
+          navigation.navigate('addTrip');
         })
         .catch(err => {
           SetError(err)

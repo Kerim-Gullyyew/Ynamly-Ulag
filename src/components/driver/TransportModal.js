@@ -19,8 +19,23 @@ const TransportModal = ({ visible, selectedTransport, transport, setTransport, o
     setVisible(false)
   }
 
+  const onAddTransportPress = () => {
+    setVisible(false);
+    setTransport(selectedTransport)
+    navigation.navigate('addDriverFormTransport')
+  }
   const choosePressed = () => {
     setVisible(false)
+  }
+
+  const EditPress = () => {
+    navigation.navigate('editDriverFormTransport', {
+      id: transport.id,
+      vehicle_type: transport.vehicle_type,
+      model: transport.model,
+      image: transport.image
+    })
+    setTransport(selectedTransport)
   }
   return (
     <View style={{ backgroundColor: 'white' }}>
@@ -48,6 +63,7 @@ const TransportModal = ({ visible, selectedTransport, transport, setTransport, o
                 }}
                 alwaysBounceVertical={false}
                 ListFooterComponent={() => (<>
+            
                   <View style={styles.actions}>
                     <CrossButtonRound onPress={cancelPressed} />
                     {transport && (
@@ -56,17 +72,12 @@ const TransportModal = ({ visible, selectedTransport, transport, setTransport, o
                           onPress={choosePressed}
                         />
                         <EditButton
-                          onPress={() => navigation.navigate('editDriverFormTransport', {
-                            id: transport.id,
-                            vehicle_type: transport.vehicle_type,
-                            model: transport.model,
-                            image: transport.image
-                          })}
+                          onPress={EditPress}
                         />
                       </>
                     )}
                     <AddButtonRound
-                      onPress={() => navigation.navigate('addDriverFormTransport')}
+                      onPress={onAddTransportPress}
                     />
                   </View>
                 </>)}
@@ -95,6 +106,8 @@ const styles = StyleSheet.create({
     marginBottom: 90,
   },
   actions: {
+    alignSelf: 'center',
+    width: '90%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

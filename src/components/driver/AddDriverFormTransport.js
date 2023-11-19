@@ -29,18 +29,23 @@ const AddDriverFormTransport = ({ navigation }) => {
       if (selectedImage) {
         formData.append('image', {
           uri: selectedImage,
-          name: 'selfie.jpg',
+          name: selectedImage,
           type: 'image/jpg'
         });
       }
       formData.append('vehicle_type', transport);
       formData.append('user', user.id);
       setIsLoading(true)
+      console.log(formData);
       dispatch(createtransport({ token, formData }))
-        .unwrap()
         .then(res => {
+          setTransport(null);
+          setModel(null);
+          SetError(null);
+          setSelectedImage(null);
+          setImage('');
           setIsLoading(false)
-          navigation.navigate('transportList');
+          navigation.navigate('addTrip', { modal: true});
         })
         .catch(err => {
           SetError(err)
