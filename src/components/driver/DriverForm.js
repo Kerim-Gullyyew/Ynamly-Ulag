@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TypeRadio } from '../../constants/TypeRadio';
 import DropdownForm from '../form/DropdownForm';
 import RadioButton from '../form/RadioButton';
@@ -60,6 +60,18 @@ const DriverForm = ({
   const [error, setError] = useState('')
   const username = useSelector((state) => state.login.user.username);
   const [visible, setVisible] = useState(false);
+  const [is_intercity, setIsIntersity] = useState(false);
+
+  useEffect(() => {
+    if (is_intercity) {
+      // setRegion2(region)
+      setTo(from)
+    }
+  }, [is_intercity, from, to])
+
+  function setTypeIsIntersity() {
+    setIsIntersity(!is_intercity)
+  }
   return (
     <>
       <FlashMessage position={"bottom"} />
@@ -72,68 +84,127 @@ const DriverForm = ({
         <Privacy show={show} onPress={onPressHandler} title="Türkmenistanyň kanunyna we syýasatyna garşy gelýän ýazgylar ýazan halatyňyzda jogapkärçilige çekiljekdigiňizi duýdurýarys." setShow={setShow} isVisible={show} />
         <View style={styles.body}>
           <View style={styles.form}>
-            <View>
-              <Text style={styles.text}>Nireden</Text>
-              <DropdownForm
-                data={Regions}
-                value={region}
-                setValue={setRegion}
-                onOptionHandler={regionHandler}
-                placeholder={PlaceholderContext.region}
-                labelField="region"
-                valueField="region"
-              />
-              {
-                width ? (
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', columnGap: 10 }}>
+            <View style={{ marginTop: 10, paddingLeft: 5, paddingTop: 5 }}>
+              <RadioButton title={"Şäher içi"} selected={is_intercity} setType={setTypeIsIntersity} />
+            </View>
+
+            {
+              is_intercity ? (
+                <View>
+                  <Text style={styles.text}>Nireden</Text>
+                  <DropdownForm
+                    data={Regions}
+                    value={region}
+                    setValue={setRegion}
+                    onOptionHandler={regionHandler}
+                    placeholder={PlaceholderContext.region}
+                    labelField="region"
+                    valueField="region"
+                  />
+                  {
+                    width ? (
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', columnGap: 10 }}>
+                        <DropdownForm
+                          onOptionHandler={fromHandler}
+                          value={from}
+                          setValue={setFrom}
+                          data={fromData}
+                          placeholder={PlaceholderContext.from}
+                          labelField="title"
+                          valueField="id"
+                          width={width}
+                        />
+                        <PlaceSubscribe />
+                      </View>
+
+                    ) : (
+                      <DropdownForm
+                        onOptionHandler={fromHandler}
+                        value={from}
+                        setValue={setFrom}
+                        data={fromData}
+                        placeholder={PlaceholderContext.from}
+                        labelField="title"
+                        valueField="id"
+                        width={width}
+                      />
+                    )
+                  }
+                </View>
+              ) : (
+                <>
+                  <View>
+                    <Text style={styles.text}>Nireden</Text>
                     <DropdownForm
-                      onOptionHandler={fromHandler}
-                      value={from}
-                      setValue={setFrom}
-                      data={fromData}
-                      placeholder={PlaceholderContext.from}
+                      data={Regions}
+                      value={region}
+                      setValue={setRegion}
+                      onOptionHandler={regionHandler}
+                      placeholder={PlaceholderContext.region}
+                      labelField="region"
+                      valueField="region"
+                    />
+                    {
+                      width ? (
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', columnGap: 10 }}>
+                          <DropdownForm
+                            onOptionHandler={fromHandler}
+                            value={from}
+                            setValue={setFrom}
+                            data={fromData}
+                            placeholder={PlaceholderContext.from}
+                            labelField="title"
+                            valueField="id"
+                            width={width}
+                          />
+                          <PlaceSubscribe />
+                        </View>
+
+                      ) : (
+                        <DropdownForm
+                          onOptionHandler={fromHandler}
+                          value={from}
+                          setValue={setFrom}
+                          data={fromData}
+                          placeholder={PlaceholderContext.from}
+                          labelField="title"
+                          valueField="id"
+                          width={width}
+                        />
+                      )
+                    }
+                  </View>
+                  <View>
+                    <Text style={styles.text}>Nirä</Text>
+                    <DropdownForm
+                      data={Regions}
+                      value={region2}
+                      setValue={setRegion2}
+                      onOptionHandler={region2Handler}
+                      placeholder={PlaceholderContext.region}
+                      labelField="region"
+                      valueField="region"
+                    />
+                    <DropdownForm
+                      onOptionHandler={toHandler}
+                      value={to}
+                      setValue={setTo}
+                      data={toData}
+                      placeholder={PlaceholderContext.to}
                       labelField="title"
                       valueField="id"
-                      width={width}
                     />
-                    <PlaceSubscribe />
                   </View>
+                </>
 
-                ) : (
-                  <DropdownForm
-                    onOptionHandler={fromHandler}
-                    value={from}
-                    setValue={setFrom}
-                    data={fromData}
-                    placeholder={PlaceholderContext.from}
-                    labelField="title"
-                    valueField="id"
-                    width={width}
-                  />
-                )
-              }
-            </View>
-            <View>
-              <Text style={styles.text}>Nirä</Text>
-              <DropdownForm
-                data={Regions}
-                value={region2}
-                setValue={setRegion2}
-                onOptionHandler={region2Handler}
-                placeholder={PlaceholderContext.region}
-                labelField="region"
-                valueField="region"
-              />
-              <DropdownForm
-                onOptionHandler={toHandler}
-                value={to}
-                setValue={setTo}
-                data={toData}
-                placeholder={PlaceholderContext.to}
-                labelField="title"
-                valueField="id"
-              />
-            </View>
+              )
+            }
+
+
+
+
+
+
             <View style={styles.padding}>
               <Pressable onPress={() => setVisible(!visible)} style={styles.transportheader}>
                 {transport?.model !== undefined ? (

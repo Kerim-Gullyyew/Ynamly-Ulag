@@ -45,7 +45,7 @@ const AddDriverFormTransport = ({ navigation }) => {
           setSelectedImage(null);
           setImage('');
           setIsLoading(false)
-          navigation.navigate('addTrip', { modal: true});
+          navigation.goBack();
         })
         .catch(err => {
           SetError(err)

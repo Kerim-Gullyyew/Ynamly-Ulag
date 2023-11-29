@@ -272,9 +272,9 @@ const loginSlice = createSlice({
       })
       .addCase(deleteTransport.fulfilled, (state, action) => {
         state.error = '';
-        state.userData.transports = state.userData.transports.filter((item) => {
-          return item.id !== action.payload;
-        })
+        // state.userData.transports = state.userData.transports.filter((item) => {
+        //   return item.id !== action.payload;
+        // })
         state.isLoading = false;
       })
       .addCase(deleteTransport.rejected, (state, action) => {
@@ -335,6 +335,7 @@ const loginSlice = createSlice({
               transport_id: trip.transport_id
             }
           }
+          return trip
         })
 
           action.payload.data.user_trips.forEach((user_trip) => {

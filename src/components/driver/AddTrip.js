@@ -26,7 +26,7 @@ const AddTrip = ({ route }) => {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
   const [transport, setTransport] = useState(null);
-  const [is_intercity, setIsIntercity] = useState(false);
+  // const [is_intercity, setIsIntercity] = useState(false);
   const [is_onway, setIsOnway] = useState(false);
   const [passenger, setPassenger] = useState(true);
   const [cargo, setCargo] = useState(false);
@@ -80,19 +80,20 @@ const AddTrip = ({ route }) => {
     setFrom(enteredValue);
   }
   function onPressHandler() {
+    let is_intercity = false
     if (from?.title === to?.title) {
-      setIsIntercity(true);
+      is_intercity = true
     } else {
-      setIsIntercity(false);
+      is_intercity = false
     }
     setShow(false);
     setIsLoading(true)
     if (capacity, from !== null, to !== null, user, transport) {
       const json = {
         is_active: true,
-        leaving_time: "2023-10-24T06:26:17.720Z",
         capacity: capacity,
         is_intercity: is_intercity,
+        leaving_time: "2023-11-22T14:49:43.801Z",
         is_onway: is_onway,
         description: description,
         cargo: cargo,
@@ -102,6 +103,7 @@ const AddTrip = ({ route }) => {
         user: user,
         transport_id: transport.id,
       };
+      console.log(json);
       dispatch(createTrip({ token, json }))
         .unwrap()
         .then(res => {
@@ -113,9 +115,9 @@ const AddTrip = ({ route }) => {
               setRegion2([]);
               setFromData([]);
               setToData([]);
+              setTransport(null);
               setFrom(null);
               setTo(null);
-              setIsIntercity(false);
               setIsOnway(false);
               setPassenger(true);
               setCargo(false);

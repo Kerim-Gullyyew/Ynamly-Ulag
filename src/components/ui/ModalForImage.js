@@ -22,8 +22,8 @@ const ModalForImage = ({ modal, setModal, setSelectedImage, image, setImage }) =
         const options = {
           mediaType: 'photo',
           includeBase64: false,
-          maxHeight: 1000,
-          maxWidth: 1000,
+          maxHeight: 512,
+          maxWidth: 512,
         };
         launchCamera(options, response => {
           console.log('Response = ', response);

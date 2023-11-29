@@ -41,7 +41,8 @@ const ClientForm1 = () => {
         if (from !== undefined) {
             const cargo = cargo === true ? `&cargo=${cargo}` : '';
             const passanger = passenger === true ? `&passanger=${passenger}` : '';
-            let link = `?from_location=${from.id}&to_location=${from.id}${cargo}${passanger}&created=true&is_intercity=true`;
+            let link = `?from_location=${from.id}&to_location=${from.id}${cargo}${passanger}&created=true&is_intercity=true&others=false`;
+            console.log(link);
             dispatch(getTrip({ link })).unwrap().then(() => {
                 navigation.navigate('ResultList', { selectedForm: 1, link: link });
             })
@@ -51,7 +52,7 @@ const ClientForm1 = () => {
     }
 
     useEffect(() => {
-        if (fromData[0]?.title === 'Aşgabat') {
+        if (fromData[0]?.title === 'Aşgabat ş.') {
             setFrom(fromData[0]);
         }
     }, [fromData, setFrom])

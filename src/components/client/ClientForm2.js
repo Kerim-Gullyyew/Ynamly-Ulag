@@ -65,19 +65,18 @@ const ClientForm2 = () => {
         }
     }
     useEffect(() => {
-        if (fromData[0]?.title === 'Aşgabat') {
+        if (fromData[0]?.title === 'Aşgabat ş.') {
             setFrom(fromData[0]);
         }
     }, [fromData, setFrom])
 
     useEffect(() => {
-        if (toData[0]?.title === 'Aşgabat') {
+        if (toData[0]?.title === 'Aşgabat ş.') {
             setTo(toData[0]);
         }
     }, [toData, setTo])
     return (
         <View style={styles.body}>
-
             <AppNameText title="Nireden" />
             {error && (
                 <Text style={styles.text}>{error}</Text>

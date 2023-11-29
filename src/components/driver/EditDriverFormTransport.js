@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DriverFormTransport from './DriverFormTransport';
 import { Vehicle_type } from '../../constants/Vehicle_type';
 import { useNavigation } from '@react-navigation/native';
-import { deleteTransport, edittransport } from './auth/loginSlice';
+import { deleteTransport, edittransport, getUserData } from './auth/loginSlice';
 const data = [
   { label: Vehicle_type.light_vehicle, value: Vehicle_type.light_vehicle },
   { label: Vehicle_type.weight_vehicle, value: Vehicle_type.weight_vehicle },
@@ -23,6 +23,7 @@ const EditDriverFormTransport = ({ route }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [image, setImage] = useState(route.params.image);
   const [isLoading, setIsLoading] = useState(false);
+  const user_id = useSelector(state => state.login.user.id);
   const [error, SetError] = useState(null);
   function onModelChange(enteredvalue) {
     setModel(enteredvalue);
@@ -35,8 +36,12 @@ const EditDriverFormTransport = ({ route }) => {
     dispatch(deleteTransport({ token, id }))
       .unwrap()
       .then(res => {
-        navigation.navigate('addTrip');
-        setIsLoading(false)
+        dispatch(getUserData({ token, user_id })).then(
+          (res => {
+            navigation.navigate('tripList');
+            setIsLoading(false)
+          })
+        )
       })
       .catch(err => {
         SetError(err)
@@ -62,7 +67,7 @@ const EditDriverFormTransport = ({ route }) => {
         .unwrap()
         .then(res => {
           setIsLoading(false)
-          navigation.navigate('addTrip');
+          navigation.navigate('tripList');
         })
         .catch(err => {
           SetError(err)

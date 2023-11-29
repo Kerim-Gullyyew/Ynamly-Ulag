@@ -61,17 +61,13 @@ const TripItem = ({ onPress, itemData }) => {
           />
 
         </View>
-        {/* <Switch
-          style={styles.status}
-          value={isSwitchOn}
-          onValueChange={onToggleSwitch}
-        /> */}
+      
         <View style={styles.body}>
           <View style={styles.point}>
             <View style={styles.group}>
               <Text style={styles.boltext}>{itemData.item.from_location.region}</Text>
               <View style={styles.round}></View>
-              <Text style={styles.boltext}>{itemData.item.from_location.title}</Text>
+              <Text style={styles.boltext}>{itemData.item.from_location.title.match(/.{1,13}/g).join('\n')} </Text>
             </View>
 
             <Animated.View
@@ -85,7 +81,7 @@ const TripItem = ({ onPress, itemData }) => {
             <View style={styles.group}>
               <Text style={styles.boltext}>{itemData.item.to_location.region}</Text>
               <View style={styles.round}></View>
-              <Text style={styles.boltext}>{itemData.item.to_location.title}</Text>
+              <Text style={styles.boltext}>{itemData.item.to_location.title.match(/.{1,10}/g).join('\n')} </Text>
             </View>
           </View>
           <View style={styles.section}>
