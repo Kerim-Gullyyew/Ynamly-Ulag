@@ -22,8 +22,8 @@ const ModalForImage = ({ modal, setModal, setSelectedImage, image, setImage }) =
         const options = {
           mediaType: 'photo',
           includeBase64: false,
-          maxHeight: 512,
-          maxWidth: 512,
+          maxHeight: 480,
+          maxWidth: 480,
         };
         launchCamera(options, response => {
           console.log('Response = ', response);
@@ -65,8 +65,8 @@ const ModalForImage = ({ modal, setModal, setSelectedImage, image, setImage }) =
         const options = {
           mediaType: 'photo',
           includeBase64: false,
-          maxHeight: 2000,
-          maxWidth: 2000,
+          maxHeight: 480,
+          maxWidth: 480,
         };
         launchImageLibrary(options, response => {
           if (response.didCancel) {
